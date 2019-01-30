@@ -2,21 +2,21 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here.
-# producttype, product, review
+# resources, event, comment
 
-class TopicType(models.Model):
-    typename=models.CharField(max_length=255)
-    typedescription=models.CharField(max_length=255, null=True, blank=True)
+class Resources(models.Model):
+    resourcename=models.CharField(max_length=255)
+    resourcedescription=models.CharField(max_length=255, null=True, blank=True)
 
     def __str__(self):
-        return self.typename
+        return self.resourcename
 
     class Meta:
-        db_table = 'topictype'
+        db_table='resources'
 
 class Event(models.Model):
     eventname=models.CharField(max_length=255)
-    topictype=models.ForeignKey(TopicType, on_delete=models.DO_NOTHING)
+    resources=models.ForeignKey(Resources, on_delete=models.DO_NOTHING)
     user=models.ForeignKey(User, on_delete=models.DO_NOTHING)
     evententrydate=models.DateField()
     eventurl=models.URLField(null=True, blank=True)
