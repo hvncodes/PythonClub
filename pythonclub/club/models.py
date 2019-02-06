@@ -14,7 +14,7 @@ class Resources(models.Model):
     class Meta:
         db_table='resources'
 
-class Event(models.Model):
+class Events(models.Model):
     eventname=models.CharField(max_length=255)
     resources=models.ForeignKey(Resources, on_delete=models.DO_NOTHING)
     user=models.ForeignKey(User, on_delete=models.DO_NOTHING)
@@ -28,10 +28,10 @@ class Event(models.Model):
     class Meta:
         db_table='event'
 
-class Comment(models.Model):
+class Comments(models.Model):
     commenttitle=models.CharField(max_length=255)
     commentdate=models.DateField()
-    event=models.ForeignKey(Event, on_delete=models.CASCADE)
+    event=models.ForeignKey(Events, on_delete=models.CASCADE)
     user=models.ManyToManyField(User)
     commentrating=models.SmallIntegerField()
     commenttext=models.TextField()

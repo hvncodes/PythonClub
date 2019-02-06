@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- This is a comment -->
+
+<h2>Events</h2>
+<table class="table">
+    <tr>
+        <th>Name</th>
+        <th>Description</th>
+    </tr>
+    {% for item in event_list %}
+    <tr>
+        <td><a href="{% url 'details' id=item.id %}">{{ item.eventname }}</a></td>
+        <td>{{ item.eventdescription }}</td>
+    </tr>
+    {% endfor %}
+</table>
+<p>under const</p>
+{% endblock %}
