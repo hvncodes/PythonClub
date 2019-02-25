@@ -7,4 +7,6 @@ urlpatterns=[
     path('getevents/', views.getevents, name='getevents'),
     path('eventdetail/<int:id>', views.eventdetail, name='details'),
     path('newevent/', views.newevent, name='newevent'),
+    path('loginmessage/', views.loginmessage, name='loginmessage'),
+    path('logoutmessage/', views.logoutmessage, name='logoutmessage'),
 ]

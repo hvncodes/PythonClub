@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Resources, Events
 from .forms import EventForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def index (request):
@@ -20,6 +21,7 @@ def eventdetail(request, id):
     return render(request, 'club/details.html', context=context)
 
 #form view
+@login_required
 def newevent(request):
     form=EventForm
     if request.method=='POST':
@@ -31,3 +33,9 @@ def newevent(request):
     else:
         form=EventForm()
     return render(request, 'club/newevent.html', {'form': form})
+
+def loginmessage(request):
+    return render(request, 'club/loginmessage.html')
+
+def logoutmessage(request):
+    return render(request, 'club/logoutmessage.html')

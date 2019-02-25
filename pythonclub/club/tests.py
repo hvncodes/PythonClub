@@ -34,3 +34,14 @@ class TestGetEvents(TestCase):
     def test_view_uses_correct_template(self):
         response=self.client.get(reverse('getevents'))
         self.assertTemplateUsed(response, 'club/events.html')
+
+class New_Event_Form_Test(TestCase):
+
+    # Valid Form Data
+    def test_eventForm_is_valid(self):
+        form = EventForm(data={'eventname': "Meeting", 'resources': "something", 'user': "Steve", 'evententrydate': "2018-12-17", 'eventurl': "http:google.com", 'eventdescription': "event description goes here"})
+        self.assertTrue(form.is_valid())
+    # Invalid Form Data
+    def test_UserForm_invalid(self):
+        form = EventForm(data={'eventname': "Meeting", 'resources': "something", 'user': "Steve", 'evententrydate': "2018-12-17", 'eventurl': "http:google.com", 'eventdescription': "event description goes here"})
+        self.assertFalse(form.is_valid())
