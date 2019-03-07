@@ -6,13 +6,29 @@ from django.urls import reverse
 # Testing Models
 class ClubResourcesTest(TestCase):
     def test_stringOutput(self):
-        clubresource=Resources(resourcename='Meeting')
+        clubresource=Resources(resourcename='Meet')
         self.assertEqual(str(clubresource), clubresource.resourcename)
 
     def test_tablename(self):
-        self.assertEqual(str(Resources._check_meta.db_table), 'clubresource')
-  
-# Testing a view
+        self.assertEqual(str(Resources._meta.db_table), 'clubresource')
+
+class ClubEventsTest(TestCase):
+    def test_stringOutput(self):
+        clubevents=Events(eventname='Party')
+        self.assertEqual(str(clubevents), clubevents.eventname)
+
+    def test_tablename(self):
+        self.assertEqual(str(Events._meta.db_table), 'clubevents')
+
+class ClubCommentsTest(TestCase):
+    def test_stringOutput(self):
+        clubcomments=Comments(commenttitle='Be there!')
+        self.assertEqual(str(clubcomments), clubcomments.reviewtitle)
+
+    def test_tablename(self):
+        self.assertEqual(str(Comments._meta.db_table), 'clubcomments')
+
+# Testing Views
 class TestIndex(TestCase):
     def test_view_url_accessible_by_name(self)
         response=self.client.get(reverse('index'))
@@ -22,6 +38,19 @@ class TestIndex(TestCase):
         response=self.client.get(reverse('index'))
         self.assertTemplateUsed(response, 'club/index.html')
     
+class TestGetDetails(TestCase):
+    def test_view_url_exists_at_desired_location(self):
+        response = self.client.get('/club/eventdetail')
+        self.assertEqual(response.status_code, 200)
+  
+    def test_view_url_accessible_by_name(self):
+        response = self.client.get(reverse('details'))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_view_uses_correct_template(self):
+        response=self.client.get(reverse('eventdetail'))
+        self.assertTemplateUsed(response, 'club/details.html')
+
 class TestGetEvents(TestCase):
     def test_view_url_exists_at_desired_location(self):
         response = self.client.get('/club/getevents')
@@ -34,7 +63,46 @@ class TestGetEvents(TestCase):
     def test_view_uses_correct_template(self):
         response=self.client.get(reverse('getevents'))
         self.assertTemplateUsed(response, 'club/events.html')
-
+        
+class TestNewEvent(TestCase):
+    def test_view_url_exists_at_desired_location(self):
+        response = self.client.get('/club/newevent')
+        self.assertEqual(response.status_code, 200)
+  
+    def test_view_url_accessible_by_name(self):
+        response = self.client.get(reverse('newevent'))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_view_uses_correct_template(self):
+        response=self.client.get(reverse('newevent'))
+        self.assertTemplateUsed(response, 'club/newevent.html')
+     
+class TestLoginMessage(TestCase):
+    def test_view_url_exists_at_desired_location(self):
+        response = self.client.get('/club/loginmessage')
+        self.assertEqual(response.status_code, 200)
+  
+    def test_view_url_accessible_by_name(self):
+        response = self.client.get(reverse('loginmessage'))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_view_uses_correct_template(self):
+        response=self.client.get(reverse('loginmessage'))
+        self.assertTemplateUsed(response, 'club/loginmessage.html')
+    
+class TestLogOutMessage(TestCase):
+    def test_view_url_exists_at_desired_location(self):
+        response = self.client.get('/club/logoutmessage')
+        self.assertEqual(response.status_code, 200)
+  
+    def test_view_url_accessible_by_name(self):
+        response = self.client.get(reverse('logoutmessage'))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_view_uses_correct_template(self):
+        response=self.client.get(reverse('logoutmessage'))
+        self.assertTemplateUsed(response, 'club/logoutmessage.html')
+    
 class New_Event_Form_Test(TestCase):
 
     # Valid Form Data
