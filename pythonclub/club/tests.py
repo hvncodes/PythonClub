@@ -28,7 +28,7 @@ class ClubCommentsTest(TestCase):
     def test_tablename(self):
         self.assertEqual(str(Comments._meta.db_table), 'clubcomments')
 
-# Testing Views
+# Testing Views & Templates
 class TestIndex(TestCase):
     def test_view_url_accessible_by_name(self)
         response=self.client.get(reverse('index'))
@@ -102,6 +102,19 @@ class TestLogOutMessage(TestCase):
     def test_view_uses_correct_template(self):
         response=self.client.get(reverse('logoutmessage'))
         self.assertTemplateUsed(response, 'club/logoutmessage.html')
+    
+class TestLogin(TestCase):
+    def test_view_url_exists_at_desired_location(self):
+        response = self.client.get('/registration/login')
+        self.assertEqual(response.status_code, 200)
+  
+    def test_view_url_accessible_by_name(self):
+        response = self.client.get(reverse('login'))
+        self.assertEqual(response.status_code, 200)
+    
+    def test_view_uses_correct_template(self):
+        response=self.client.get(reverse('login'))
+        self.assertTemplateUsed(response, 'registration/login.html')
     
 class New_Event_Form_Test(TestCase):
 
